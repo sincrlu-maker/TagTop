@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}我的配对 - TagTok{% endblock %}
+{% block content %}
+<div class="matches-wrap">
+    <h2>我的配对</h2>
+    {% if matched_users %}
+    <div class="matches-list">
+        {% for u in matched_users %}
+        <div class="match-list-item">
+            <div class="avatar-placeholder">{{ u.nickname[0] }}</div>
+            <div>
+                <p class="match-name">{{ u.nickname }}</p>
+                <p class="match-bio">{{ u.bio }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p class="empty-state">还没有配对成功的用户，去交友页面滑一滑吧～</p>
+    {% endif %}
+</div>
+{% endblock %}

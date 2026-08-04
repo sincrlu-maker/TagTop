@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}我的标签 - TagTok{% endblock %}
+{% block content %}
+<div class="profile-wrap">
+    <div class="profile-card">
+        <h2>{{ user.nickname }} 的个人画像</h2>
+        <p class="profile-hint">标签根据你的浏览、点赞行为自动生成，仅作趣味展示，非专业心理测评。</p>
+
+        <h3>性格标签</h3>
+        <div class="tag-chips">
+            {% for p in tags.personality_tags %}
+            <span class="chip chip-personality">{{ p }}</span>
+            {% endfor %}
+        </div>
+
+        <h3>兴趣偏好</h3>
+        {% if tags.interest_tags %}
+        <div class="interest-bars">
+            {% set max_score = tags.interest_tags[0][1] %}
+            {% for category, score in tags.interest_tags %}
+            <div class="interest-row">
+                <span class="interest-label">{{ category }}</span>
+                <div class="interest-bar-bg">
+                    <div class="interest-bar-fill" style="width: {{ (score / max_score * 100) if max_score else 0 }}%;"></div>
+                </div>
+                <span class="interest-score">{{ score }}</span>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p class="empty-state">还没有足够的浏览数据，去首页多刷几个视频吧～</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
